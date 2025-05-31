@@ -25,8 +25,9 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
+                    set -e
                     . venv/bin/activate
-                    pytest tests/
+                    PYTHONPATH=. pytest tests/
                 '''
             }
         }
