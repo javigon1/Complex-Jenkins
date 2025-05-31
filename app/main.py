@@ -7,4 +7,4 @@ if __name__ == "__main__":
 
     print("App finished running")
 
-    printa 
+
