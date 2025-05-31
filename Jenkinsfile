@@ -2,41 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Setup virtualenv') {
+        stage('Install dependencies') {
             steps {
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                sh '/opt/homebrew/bin/pip3 install -r requirements.txt'
             }
         }
 
         stage('Lint') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics
-                '''
+                sh 'flake8 app/ --count --select=E9,F63,F7,F82 --show-source --statistics'
             }
         }
 
         stage('Test') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    pytest tests/
-                '''
+                sh 'pytest tests/'
             }
         }
 
         stage('Build') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    python setup.py sdist
-                '''
+                sh '/opt/homebrew/bin/python3 setup.py sdist'
             }
         }
 
