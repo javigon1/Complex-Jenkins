@@ -41,6 +41,15 @@ pipeline {
             }
         }
 
+        stage('Run App') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    python app/main.py
+                '''
+            }
+        }
+
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
